@@ -10,6 +10,7 @@ import de.neemann.digital.core.ObservableValues;
 import de.neemann.digital.core.element.PinDescription;
 import de.neemann.digital.core.element.PinDescriptions;
 import de.neemann.digital.core.element.PinInfo;
+import de.neemann.digital.core.extern.Port.PortType;
 import de.neemann.digital.hdl.hgs.HGSArray;
 
 import java.util.ArrayList;
@@ -88,10 +89,11 @@ public class PortDefinition implements Iterable<Port>, HGSArray {
      * Adds a port to this description
      *
      * @param name the name
+     * @param type the type
      * @param bits the number of bits
      */
-    public void addPort(String name, int bits) {
-        ports.add(new Port(name, bits));
+    public void addPort(String name, PortType type, int bits) {
+        ports.add(new Port(name, type, bits));
     }
 
     /**
