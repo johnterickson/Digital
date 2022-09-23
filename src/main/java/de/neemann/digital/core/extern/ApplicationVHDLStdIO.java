@@ -7,6 +7,7 @@ package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.extern.Port.PortType;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
 import de.neemann.digital.hdl.hgs.Parser;
@@ -71,7 +72,14 @@ public abstract class ApplicationVHDLStdIO implements Application {
                 .declareVar("outputs", outputs);
 
         TEMPLATE.execute(context);
-        return context.toString();
+        String vhdl = context.toString();
+        // String[] lines = vhdl.split("\n");
+        // int lineNum = 1;
+        // for (String line : lines) {
+        //     System.out.println(lineNum + ": " + line);
+        //     lineNum += 1;
+        // }
+        return vhdl;
     }
 
     @Override
@@ -141,9 +149,10 @@ public abstract class ApplicationVHDLStdIO implements Application {
         switch (st.consumeIdent().toLowerCase()) {
             case "std_logic":
                 for (String var : vars)
-                    port.addPort(var, 1);
+                    port.addPort(var, PortType.LOGIC_BIT, 1);
                 break;
             case "std_logic_vector":
+            case "unsigned":
                 st.consume(OPEN);
                 int upper = st.consumeNumber();
                 st.consumeIdent("downto");
@@ -153,8 +162,11 @@ public abstract class ApplicationVHDLStdIO implements Application {
                 if (lower != 0)
                     throw new ParseException("lower is not zero");
 
+                PortType type = st.consumeIdent().toLowerCase().equals("std_logic_vector")
+                    ? PortType.LOGIC_VECTOR
+                    : PortType.UNSIGNED;
                 for (String var : vars)
-                    port.addPort(var, upper + 1);
+                    port.addPort(var, type, upper + 1);
                 break;
             default:
                 throw new ParseException("unexpected token " + st);
