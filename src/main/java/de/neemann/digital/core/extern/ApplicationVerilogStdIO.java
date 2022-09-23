@@ -7,6 +7,7 @@ package de.neemann.digital.core.extern;
 
 import de.neemann.digital.core.element.ElementAttributes;
 import de.neemann.digital.core.element.Keys;
+import de.neemann.digital.core.extern.Port.PortType;
 import de.neemann.digital.core.extern.VerilogTokenizer.Token;
 import de.neemann.digital.hdl.hgs.Context;
 import de.neemann.digital.hdl.hgs.HGSEvalException;
@@ -187,10 +188,12 @@ public abstract class ApplicationVerilogStdIO implements Application {
         String name = st.value();
         match(Token.IDENT, "identifier", st);
 
+        PortType type = bits == 1 ? PortType.LOGIC_BIT : PortType.LOGIC_VECTOR;
+
         if (isInput) {
-            in.addPort(name, bits);
+            in.addPort(name, type, bits);
         } else {
-            out.addPort(name, bits);
+            out.addPort(name, type, bits);
         }
 
         while (currToken == Token.COMMA) {
@@ -201,9 +204,9 @@ public abstract class ApplicationVerilogStdIO implements Application {
             match(Token.IDENT, "identifier", st);
 
             if (isInput) {
-                in.addPort(name, bits);
+                in.addPort(name, type, bits);
             } else {
-                out.addPort(name, bits);
+                out.addPort(name, type, bits);
             }
         }
     }
