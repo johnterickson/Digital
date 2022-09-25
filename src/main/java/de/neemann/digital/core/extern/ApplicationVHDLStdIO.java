@@ -73,7 +73,13 @@ public abstract class ApplicationVHDLStdIO implements Application {
 
         TEMPLATE.execute(context);
         String vhdl = context.toString();
-        System.out.println(vhdl);
+        String[] lines = vhdl.split("\n");
+        int lineNum = 1;
+        for (String line : lines) {
+            System.out.println(lineNum + ": " + line);
+            lineNum += 1;
+        }
+
         return vhdl;
     }
 
