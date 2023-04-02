@@ -470,7 +470,7 @@
     <string name="elem_RS_FF_AS_short">RS</string>
     <string name="elem_RS_FF_AS_tt">A component to store a single bit.
         Provides the functions "set" and "reset" to set or reset the stored bit.
-        If both inputs are switched to one, both outputs also output a one.
+        If both inputs are switched to one, both outputs also output a zero.
         If both inputs switch back to zero at the same time, the final state is random.
     </string>
     <string name="elem_RS_FF_AS_pin_S">The set input.</string>
@@ -2030,7 +2030,7 @@
 
     <string name="message"><![CDATA[<h1>Digital</h1>
         <p>A simple simulator for digital circuits.</p>
-        <p>Written by H. Neemann in 2016-2021.</p>
+        <p>Written by H. Neemann in 2016-2023.</p>
         <p>The icons are taken from the <a href="http://tango.freedesktop.org">Tango Desktop Project</a>.</p>
         <p>Visit the project at <a href="https://github.com/hneemann/[[name]]">GitHub</a>.
         At GitHub you can also <a href="https://github.com/hneemann/[[name]]/releases/latest">download</a>
