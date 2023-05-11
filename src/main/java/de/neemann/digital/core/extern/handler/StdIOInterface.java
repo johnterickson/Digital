@@ -89,7 +89,7 @@ public class StdIOInterface implements ProcessInterface {
                     }
                 }
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.debug(e.toString());
             }
             synchronized (lock) {
                 terminated = true;
